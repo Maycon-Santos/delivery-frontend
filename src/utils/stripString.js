@@ -1,3 +1,3 @@
-export function stripEverythingIsNotNumber(str) {
+export function stripEverythingIsNotNumber(str = "") {
   return str.replace(/\D/g, "");
 }
