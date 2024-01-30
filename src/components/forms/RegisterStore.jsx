@@ -7,13 +7,16 @@ import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import { stripEverythingIsNotNumber } from "@/utils/stripString";
 
-export default function RegisterStore() {
+export default function RegisterStore(props) {
+  const { onRegister } = props;
+
   const formik = useFormik({
     initialValues: {
       name: "",
       cnpj: "",
       password: "",
       confirmPassword: "",
+      submit: "",
     },
     validationSchema: Yup.object().shape({
       name: Yup.string().min(
@@ -37,8 +40,6 @@ export default function RegisterStore() {
       console.log("Fez o submit");
     },
   });
-
-  console.log(formik.errors);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -101,7 +102,7 @@ export default function RegisterStore() {
         />
       </FormControl>
       <FormControl fullWidth sx={{ p: 1 }} variant="filled">
-        <Button variant="contained" size="large">
+        <Button variant="contained" size="large" type="submit">
           Cadastrar loja
         </Button>
       </FormControl>

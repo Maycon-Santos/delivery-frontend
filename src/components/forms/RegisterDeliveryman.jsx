@@ -6,8 +6,12 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import { stripEverythingIsNotNumber } from "@/utils/stripString";
+import { apiPost } from "@/service/api";
+import { errorsMap } from "@/data/errorMap";
 
-export default function RegisterDeliveryman() {
+export default function RegisterDeliveryman(props) {
+  const { onRegister } = props;
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -29,9 +33,25 @@ export default function RegisterDeliveryman() {
         [Yup.ref("password"), null],
         "As senhas não são iguais"
       ),
+      submit: "",
     }),
     async onSubmit({ email, cpf, password }) {
-      console.log("Fez o submit");
+      const formattedCpf = stripEverythingIsNotNumber(cpf);
+
+      const response = await apiPost("/register-deliveryman", {
+        cpf: formattedCpf,
+        email,
+        password,
+      });
+
+      if (response.success) {
+        if (onRegister) {
+          onRegister();
+        }
+        return;
+      }
+
+      formik.setFieldError("submit", errorsMap[response.type]);
     },
   });
 
@@ -94,7 +114,7 @@ export default function RegisterDeliveryman() {
         />
       </FormControl>
       <FormControl fullWidth sx={{ p: 1 }} variant="filled">
-        <Button variant="contained" size="large">
+        <Button variant="contained" size="large" type="submit">
           Cadastrar entregador
         </Button>
       </FormControl>

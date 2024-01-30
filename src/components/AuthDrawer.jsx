@@ -68,8 +68,14 @@ export default function AuthDrawer(props) {
               {userType === USER_TYPE_CONSUMER && (
                 <RegisterConsumer onRegister={() => setCurrentTab("login")} />
               )}
-              {userType === USER_TYPE_DELIVERYMAN && <RegisterDeliveryman />}
-              {userType === USER_TYPE_STORE && <RegisterStore />}
+              {userType === USER_TYPE_DELIVERYMAN && (
+                <RegisterDeliveryman
+                  onRegister={() => setCurrentTab("login")}
+                />
+              )}
+              {userType === USER_TYPE_STORE && (
+                <RegisterStore onRegister={() => setCurrentTab("login")} />
+              )}
             </>
           )}
         </Box>
