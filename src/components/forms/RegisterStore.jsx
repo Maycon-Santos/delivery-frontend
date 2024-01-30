@@ -33,7 +33,7 @@ export default function RegisterStore() {
         "As senhas não são iguais"
       ),
     }),
-    onSubmit() {
+    async onSubmit({ name, cnpj, password }) {
       console.log("Fez o submit");
     },
   });

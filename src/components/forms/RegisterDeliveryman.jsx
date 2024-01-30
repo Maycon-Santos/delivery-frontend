@@ -30,7 +30,7 @@ export default function RegisterDeliveryman() {
         "As senhas não são iguais"
       ),
     }),
-    onSubmit() {
+    async onSubmit({ email, cpf, password }) {
       console.log("Fez o submit");
     },
   });
