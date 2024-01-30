@@ -27,8 +27,6 @@ export default function AuthDrawer(props) {
   const searchParams = useSearchParams();
   const userType = searchParams.get("userType") || USER_TYPE_CONSUMER;
 
-  console.log(userType);
-
   return (
     <SwipeableDrawer
       anchor="right"

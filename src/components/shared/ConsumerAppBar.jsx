@@ -17,7 +17,7 @@ export default function ConsumerAppBar(props) {
   const accountIconRef = useRef();
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <IconButton
           size="large"

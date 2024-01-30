@@ -11,7 +11,7 @@ function getToken() {
   if (!cookieCutter.set) {
     const { cookies } = require("next/headers");
     const cookieStore = cookies();
-    return cookieStore.get("token").value;
+    return cookieStore.get("token")?.value;
   }
 
   return cookieCutter.get("token");
@@ -42,8 +42,6 @@ export async function apiPost(endpoint, body = {}) {
 
 export async function apiGet(endpoint) {
   const token = getToken();
-
-  console.log(`${baseUrl}${endpoint}`, "----");
 
   try {
     const request = await fetch(`${baseUrl}${endpoint}`, {

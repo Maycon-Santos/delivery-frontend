@@ -19,9 +19,7 @@ export default function Home() {
         onOpen={() => setLoginDrawerIsOpen(true)}
         onClose={() => setLoginDrawerIsOpen(false)}
       />
-      {/* Barra de navegação do topo */}
-      <AppBar position="static">
-        {/* Fica responsável por abrir todas as ferramentas da barra de navegação */}
+      <AppBar position="sticky">
         <Toolbar>
           <IconButton
             size="large"
@@ -32,7 +30,6 @@ export default function Home() {
           >
             <MenuIcon />
           </IconButton>
-          {/* Typography - Componente que cuida da tipografia */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Delivery
           </Typography>
