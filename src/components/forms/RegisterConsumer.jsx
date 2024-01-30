@@ -5,15 +5,21 @@ import InputMask from "react-input-mask";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { stripEverythingIsNotNumber } from "@/utils/stripString";
+import { apiPost } from "@/service/api";
+import { errorsMap } from "@/data/errorMap";
 
-export default function RegisterConsumer() {
+export default function RegisterConsumer(props) {
+  const { onRegister } = props;
+
   const formik = useFormik({
     initialValues: {
       email: "",
       cpf: "",
       password: "",
       confirmPassword: "",
+      submit: "",
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email("Email inválido"),
@@ -30,8 +36,21 @@ export default function RegisterConsumer() {
         "As senhas não são iguais"
       ),
     }),
-    onSubmit() {
-      console.log("Fez o submit");
+    async onSubmit({ cpf, email, password }) {
+      const response = await apiPost("/register-user", {
+        cpf: stripEverythingIsNotNumber(cpf),
+        email,
+        password,
+      });
+
+      if (response.success) {
+        if (onRegister) {
+          onRegister();
+        }
+        return;
+      }
+
+      formik.setFieldError("submit", errorsMap[response.type]);
     },
   });
 
@@ -94,9 +113,14 @@ export default function RegisterConsumer() {
         />
       </FormControl>
       <FormControl fullWidth sx={{ p: 1 }} variant="filled">
-        <Button variant="contained" size="large">
-          Cadastrar entregador
+        <Button variant="contained" size="large" type="submit">
+          Cadastrar consumidor
         </Button>
+        {formik.errors.submit && (
+          <Typography color="red" textAlign="center" marginTop={1}>
+            {formik.errors.submit}
+          </Typography>
+        )}
       </FormControl>
     </form>
   );

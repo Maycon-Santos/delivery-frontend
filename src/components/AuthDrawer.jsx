@@ -36,7 +36,7 @@ export default function AuthDrawer(props) {
       onOpen={onOpen}
       onClose={onClose}
     >
-      <Box sx={{ width: 300, py: 4 }}>
+      <Box sx={{ width: 350, py: 4 }}>
         <Box sx={{ px: 1 }}>
           <Stack sx={{ px: 1, mb: 2 }}>
             <Typography variant="h6">
@@ -67,7 +67,9 @@ export default function AuthDrawer(props) {
           )}
           {currentTab === "register" && (
             <>
-              {userType === USER_TYPE_CONSUMER && <RegisterConsumer />}
+              {userType === USER_TYPE_CONSUMER && (
+                <RegisterConsumer onRegister={() => setCurrentTab("login")} />
+              )}
               {userType === USER_TYPE_DELIVERYMAN && <RegisterDeliveryman />}
               {userType === USER_TYPE_STORE && <RegisterStore />}
             </>
